@@ -1,0 +1,27 @@
+# vim
+*~
+
+# env
+*.env
+
+# Python byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+
+env.sh
+
+#build
+dist/
+
+# node
+node_modules/
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*

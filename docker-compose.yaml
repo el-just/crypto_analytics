@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+    clickhouse:
+        image: "yandex/clickhouse-server:20.1"
+        ports:
+            - "8123:8123"
+            - "9000:9000"
+        volumes:
+            - db:/var/lib/clickhouse
+            - ./db_init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - ca-net
+    api:
+        build:
+            context: .
+            dockerfile: ./services/api/Dockerfile
+        ports:
+            - "6543:6543"
+        depends_on:
+            - clickhouse
+        volumes:
+            - ./services/api:/usr/src/app/service
+            - ./ca_common:/usr/src/app/ca_common
+        networks:
+            - ca-net
+    listener:
+        build:
+            context: .
+            dockerfile: ./services/listener/Dockerfile
+        ports:
+            - "6542:6542"
+        depends_on:
+            - clickhouse
+        volumes:
+            - ./services/listener:/usr/src/app/service
+            - ./ca_common:/usr/src/app/ca_common
+        networks:
+            - ca-net
+
+volumes:
+    db:
+
+networks:
+  ca-net:
