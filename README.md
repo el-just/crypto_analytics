@@ -74,7 +74,7 @@
 
 ### Как запусть:
 ```
-git clone git@github.com:el-just/crypto_analytics.git
+git clone git@github.com:el-just/crypto_analytics.git && cd crypto_analytics
 docker-compose up
 ```
 
